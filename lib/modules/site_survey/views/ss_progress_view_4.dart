@@ -55,11 +55,11 @@ class _SSProgressViewFourState extends State<SSProgressViewFour> {
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       widget.siteSurveyController!.distanceFromNearestDBTextController.text =
-      (siteSurveyObjectRequests!.distance is double) ? siteSurveyObjectRequests!.distance.toString() : "";
+      (siteSurveyObjectRequests!.distance is double) ? "${siteSurveyObjectRequests!.distance}" : "";
       widget.siteSurveyController!.spaceAvailableLTextController.text =
-      (siteSurveyObjectRequests!.parkingLength is double) ? siteSurveyObjectRequests!.parkingLength.toString() : "";
+      (siteSurveyObjectRequests!.parkingLength is double) ? "${siteSurveyObjectRequests!.parkingLength}" : "";
       widget.siteSurveyController!.spaceAvailableBTextController.text =
-      (siteSurveyObjectRequests!.parkingWidth is double) ? siteSurveyObjectRequests!.parkingWidth.toString() : "";
+      (siteSurveyObjectRequests!.parkingWidth is double) ? "${siteSurveyObjectRequests!.parkingWidth}" : "";
 
       widget.siteSurveyController!.isParkingAreaCovered =
           siteSurveyObjectRequests!.isParkingArea;

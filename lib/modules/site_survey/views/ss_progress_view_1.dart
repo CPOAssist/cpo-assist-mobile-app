@@ -258,7 +258,7 @@ class _SSProgressViewOneState extends State<SSProgressViewOne>
                     textAlign: TextAlign.left,
                     controller: widget
                         .siteSurveyController!.siteOwnerContactTextController,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(top: 10, left: 15),
                       focusedBorder: OutlineInputBorder(

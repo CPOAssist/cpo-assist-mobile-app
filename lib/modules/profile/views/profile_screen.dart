@@ -62,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     Get.back();
                   },
@@ -97,11 +97,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 35.h,
                     padding: const EdgeInsets.only(left: 38, right: 38),
                     child: TextField(
+                      focusNode: AlwaysDisabledFocusNode(),
                       style: TextStyle(
                           fontSize: 14.sp, color: AppColors.kBlackColor),
                       textAlign: TextAlign.left,
                       controller: profileController!.emailTextEditingController,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.only(top: 10, left: 15),
@@ -133,12 +134,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 35.h,
                     padding: const EdgeInsets.only(left: 38, right: 38),
                     child: TextField(
+                      focusNode: AlwaysDisabledFocusNode(),
                       style: TextStyle(
                           fontSize: 14.sp, color: AppColors.kBlackColor),
                       textAlign: TextAlign.left,
                       controller:
                           profileController!.mobileNumberTextEditingController,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.only(top: 10, left: 15),
@@ -170,6 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 35.h,
                     padding: const EdgeInsets.only(left: 38, right: 38),
                     child: TextField(
+                      focusNode: AlwaysDisabledFocusNode(),
                       style: TextStyle(
                           fontSize: 14.sp, color: AppColors.kBlackColor),
                       textAlign: TextAlign.left,

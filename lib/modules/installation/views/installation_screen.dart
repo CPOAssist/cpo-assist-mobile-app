@@ -30,20 +30,23 @@ class _InstallationScreenState extends State<InstallationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "installation".tr,
-          style: TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.w600,
+    return WillPopScope(
+      onWillPop: onBackPressed,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "installation".tr,
+            style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      drawer: drawer(context),
-      body: SafeArea(
-        child: bodyWidget(),
+        drawer: drawer(context),
+        body: SafeArea(
+          child: bodyWidget(),
+        ),
       ),
     );
   }

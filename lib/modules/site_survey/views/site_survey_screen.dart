@@ -44,23 +44,26 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "site_survey".tr,
-          style: TextStyle(fontSize: 24.sp),
-        ),
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: const Size(double.infinity, 1.0),
-          child: ProgressBar(
-            isLoading: Bloc.bloc.blocStream.stream,
+    return WillPopScope(
+      onWillPop: onBackPressed,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "site_survey".tr,
+            style: TextStyle(fontSize: 24.sp),
+          ),
+          centerTitle: true,
+          bottom: PreferredSize(
+            preferredSize: const Size(double.infinity, 1.0),
+            child: ProgressBar(
+              isLoading: Bloc.bloc.blocStream.stream,
+            ),
           ),
         ),
-      ),
-      drawer: drawer(context),
-      body: SafeArea(
-        child: bodyWidget(),
+        drawer: drawer(context),
+        body: SafeArea(
+          child: bodyWidget(),
+        ),
       ),
     );
   }
@@ -202,17 +205,20 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                   ),
                   visible: siteSurveyController!
                       .siteSurveyAssignObjectRequestList.isNotEmpty,
-                  child: ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 10, width: double.infinity);
-                    },
-                    shrinkWrap: true,
-                    itemCount: siteSurveyController!
-                        .siteSurveyAssignObjectRequestList.length,
-                    itemBuilder: (context, index) {
-                      return assignedListItem(context, index);
-                    },
+                  child: ScrollConfiguration(
+                    behavior: MyBehavior(),
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 10, width: double.infinity);
+                      },
+                      shrinkWrap: true,
+                      itemCount: siteSurveyController!
+                          .siteSurveyAssignObjectRequestList.length,
+                      itemBuilder: (context, index) {
+                        return assignedListItem(context, index);
+                      },
+                    ),
                   ),
                 );
               }),
@@ -276,17 +282,20 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                   ),
                   visible: siteSurveyController!
                       .siteSurveySavedObjectRequestList.isNotEmpty,
-                  child: ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 10, width: double.infinity);
-                    },
-                    shrinkWrap: true,
-                    itemCount: siteSurveyController!
-                        .siteSurveySavedObjectRequestList.length,
-                    itemBuilder: (context, index) {
-                      return savedListItem(context, index);
-                    },
+                  child: ScrollConfiguration(
+                    behavior: MyBehavior(),
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 10, width: double.infinity);
+                      },
+                      shrinkWrap: true,
+                      itemCount: siteSurveyController!
+                          .siteSurveySavedObjectRequestList.length,
+                      itemBuilder: (context, index) {
+                        return savedListItem(context, index);
+                      },
+                    ),
                   ),
                 );
               }),
@@ -349,17 +358,20 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                 ),
                 visible: siteSurveyController!
                     .siteSurveyHistoryObjectRequestList.isNotEmpty,
-                child: ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 10, width: double.infinity);
-                  },
-                  shrinkWrap: true,
-                  itemCount: siteSurveyController!
-                      .siteSurveyHistoryObjectRequestList.length,
-                  itemBuilder: (context, index) {
-                    return historyListItem(context, index);
-                  },
+                child: ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 10, width: double.infinity);
+                    },
+                    shrinkWrap: true,
+                    itemCount: siteSurveyController!
+                        .siteSurveyHistoryObjectRequestList.length,
+                    itemBuilder: (context, index) {
+                      return historyListItem(context, index);
+                    },
+                  ),
                 ),
               );
             }),
@@ -400,22 +412,22 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                     child: Row(
                       children: [
                         Text(
-                          "${"site_name".tr} -",
-                          style: TextStyle(
-                              color: AppColors.kBlackColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12.sp),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          siteSurveyController!
-                                  .siteSurveyAssignObjectRequestList[index]
-                                  .onSiteName ??
-                              "",
+                          "${"site_name".tr} - ",
                           style: TextStyle(
                             color: AppColors.kBlackColor,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             fontSize: 12.sp,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "${siteSurveyController!.siteSurveyAssignObjectRequestList[index].onSiteName}",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.kBlackColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.sp,
+                            ),
                           ),
                         )
                       ],
@@ -426,25 +438,20 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                     child: Row(
                       children: [
                         Text(
-                          "${"site_id".tr} -",
+                          "${"site_id".tr} - ",
                           style: TextStyle(
                               color: AppColors.kBlackColor,
                               fontWeight: FontWeight.w500,
                               fontSize: 12.sp),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
                         Text(
-                            siteSurveyController!
-                                .siteSurveyAssignObjectRequestList[index]
-                                .site!
-                                .id
-                                .toString(),
-                            style: TextStyle(
-                                color: AppColors.kBlackColor,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.sp))
+                          "${siteSurveyController!.siteSurveyAssignObjectRequestList[index].site!.id}",
+                          style: TextStyle(
+                            color: AppColors.kBlackColor,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -454,37 +461,34 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${"address".tr} -",
+                    "${"address".tr} - ",
                     style: TextStyle(
                         color: AppColors.kBlackColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 12.sp),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
                   Expanded(
-                      child: Text(
-                          getAddress(siteSurveyController!
-                              .siteSurveyAssignObjectRequestList[index]),
-                          maxLines: 2,
-                          style: TextStyle(
-                              color: AppColors.kBlackColor,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp)))
+                    child: Text(
+                      getAddress(siteSurveyController!
+                          .siteSurveyAssignObjectRequestList[index]),
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: AppColors.kBlackColor,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  )
                 ],
               ),
               Row(
                 children: [
                   Text(
-                    "${"due_in".tr} -",
+                    "${"due_in".tr} - ",
                     style: TextStyle(
                         color: AppColors.kBlackColor,
                         fontWeight: FontWeight.w500,
                         fontSize: 12.sp),
-                  ),
-                  const SizedBox(
-                    width: 5,
                   ),
                   Text(
                     "0 days",
@@ -532,22 +536,22 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                     child: Row(
                       children: [
                         Text(
-                          "${"site_name".tr} -",
+                          "${"site_name".tr} - ",
                           style: TextStyle(
                               color: AppColors.kBlackColor,
                               fontWeight: FontWeight.w600,
                               fontSize: 12.sp),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                            siteSurveyController!
-                                    .siteSurveySavedObjectRequestList[index]
-                                    .onSiteName ??
-                                "",
+                        Expanded(
+                          child: Text(
+                            "${siteSurveyController!.siteSurveySavedObjectRequestList[index].onSiteName}",
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: AppColors.kBlackColor, fontSize: 12.sp))
+                              color: AppColors.kBlackColor,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -556,23 +560,19 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                     child: Row(
                       children: [
                         Text(
-                          "${"site_id".tr} -",
+                          "${"site_id".tr} - ",
                           style: TextStyle(
                               color: AppColors.kBlackColor,
                               fontWeight: FontWeight.w600,
                               fontSize: 12.sp),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
                         Text(
-                            siteSurveyController!
-                                .siteSurveySavedObjectRequestList[index]
-                                .site!
-                                .id
-                                .toString(),
-                            style: TextStyle(
-                                color: AppColors.kBlackColor, fontSize: 12.sp))
+                          "${siteSurveyController!.siteSurveySavedObjectRequestList[index].site!.id}",
+                          style: TextStyle(
+                            color: AppColors.kBlackColor,
+                            fontSize: 12.sp,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -592,25 +592,26 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                     width: 5,
                   ),
                   Expanded(
-                      child: Text(
-                          getAddress(siteSurveyController!
-                              .siteSurveySavedObjectRequestList[index]),
-                          maxLines: 2,
-                          style: TextStyle(
-                              color: AppColors.kBlackColor, fontSize: 12.sp)))
+                    child: Text(
+                      getAddress(siteSurveyController!
+                          .siteSurveySavedObjectRequestList[index]),
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: AppColors.kBlackColor,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  )
                 ],
               ),
               Row(
                 children: [
                   Text(
-                    "${"due_in".tr} -",
+                    "${"due_in".tr} - ",
                     style: TextStyle(
                         color: AppColors.kBlackColor,
                         fontWeight: FontWeight.w600,
                         fontSize: 12.sp),
-                  ),
-                  const SizedBox(
-                    width: 5,
                   ),
                   Text(
                     "0 days",
@@ -647,22 +648,23 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                   child: Row(
                     children: [
                       Text(
-                        "${"site_name".tr} -",
+                        "${"site_name".tr} - ",
                         style: TextStyle(
-                            color: AppColors.kBlackColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12.sp),
+                          color: AppColors.kBlackColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12.sp,
+                        ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                          siteSurveyController!
-                                  .siteSurveyHistoryObjectRequestList[index]
-                                  .onSiteName ??
-                              "",
+                      Expanded(
+                        child: Text(
+                          "${siteSurveyController!.siteSurveyHistoryObjectRequestList[index].onSiteName}",
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              color: AppColors.kBlackColor, fontSize: 12.sp))
+                            color: AppColors.kBlackColor,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -671,21 +673,14 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
                   child: Row(
                     children: [
                       Text(
-                        "${"site_id".tr} -",
+                        "${"site_id".tr} - ",
                         style: TextStyle(
                             color: AppColors.kBlackColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 12.sp),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
                       Text(
-                          siteSurveyController!
-                              .siteSurveyHistoryObjectRequestList[index]
-                              .site!
-                              .id
-                              .toString(),
+                          "${siteSurveyController!.siteSurveyHistoryObjectRequestList[index].site!.id}",
                           style: TextStyle(
                               color: AppColors.kBlackColor, fontSize: 12.sp))
                     ],
@@ -697,14 +692,11 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${"address".tr} -",
+                  "${"address".tr} - ",
                   style: TextStyle(
                       color: AppColors.kBlackColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 12.sp),
-                ),
-                const SizedBox(
-                  width: 5,
                 ),
                 Expanded(
                     child: Text(
@@ -718,14 +710,11 @@ class _SiteSurveyScreenState extends State<SiteSurveyScreen> {
             Row(
               children: [
                 Text(
-                  "${"due_in".tr} -",
+                  "${"due_in".tr} - ",
                   style: TextStyle(
                       color: AppColors.kBlackColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 12.sp),
-                ),
-                const SizedBox(
-                  width: 5,
                 ),
                 Text(
                   "0 days",

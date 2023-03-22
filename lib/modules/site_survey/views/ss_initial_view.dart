@@ -45,7 +45,7 @@ class _SSInitialViewState extends State<SSInitialView> {
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       widget.siteSurveyController!.siteIdTextController.text =
-          siteSurveyObjectRequests!.site!.id!.toString();
+          "${siteSurveyObjectRequests!.site!.id}";
       widget.siteSurveyController!.salesHandlerTextController.text = "${siteSurveyObjectRequests!.site?.handler?.firstName} ${siteSurveyObjectRequests!.site?.handler?.lastName}";
       widget.siteSurveyController!.contactNumberTextController.text =
           siteSurveyObjectRequests!.contactNumber ?? "";
@@ -119,42 +119,45 @@ class _SSInitialViewState extends State<SSInitialView> {
                       ),
                       SizedBox(width: 10.w),
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "sales_handler".tr,
-                              style: headerStyle,
-                            ),
-                            SizedBox(height: 5.h),
-                            SizedBox(
-                              height: 35.h,
-                              child: TextField(
-                                focusNode: AlwaysDisabledFocusNode(),
-                                style: textFieldTextStyle,
-                                textAlign: TextAlign.left,
-                                controller: widget.siteSurveyController!
-                                    .salesHandlerTextController,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                      const EdgeInsets.only(top: 10, left: 15),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    borderSide: const BorderSide(
-                                        color: AppColors.kBlackBorderColor,
-                                        width: 1.0),
+                        child: Visibility(
+                          visible: false,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "sales_handler".tr,
+                                style: headerStyle,
+                              ),
+                              SizedBox(height: 5.h),
+                              SizedBox(
+                                height: 35.h,
+                                child: TextField(
+                                  focusNode: AlwaysDisabledFocusNode(),
+                                  style: textFieldTextStyle,
+                                  textAlign: TextAlign.left,
+                                  controller: widget.siteSurveyController!
+                                      .salesHandlerTextController,
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        const EdgeInsets.only(top: 10, left: 15),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16.r),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.kBlackBorderColor,
+                                          width: 1.0),
+                                    ),
+                                    enabledBorder: outlineInputBorder,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16.r),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
                                   ),
-                                  enabledBorder: outlineInputBorder,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16.r),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],

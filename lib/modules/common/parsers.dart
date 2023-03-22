@@ -34,14 +34,15 @@ class Parsers {
         SiteSurveyController siteSurveyController =
             Get.find<SiteSurveyController>();
         if(type == 1) {
+
           siteSurveyController.siteSurveyAssignObjectRequestList
-              .addAll(siteSurveyObjectResponse.data!.requests!);
+              .addAll(siteSurveyObjectResponse.data!.requests ?? []);
         } else if(type == 2) {
           siteSurveyController.siteSurveySavedObjectRequestList
-              .addAll(siteSurveyObjectResponse.data!.requests!);
+              .addAll(siteSurveyObjectResponse.data!.requests ?? []);
         } else if(type == 3) {
           siteSurveyController.siteSurveyHistoryObjectRequestList
-              .addAll(siteSurveyObjectResponse.data!.requests!);
+              .addAll(siteSurveyObjectResponse.data!.requests ?? []);
         }
       }
     }

@@ -208,6 +208,11 @@ class SiteSurveyController extends GetxController {
         showSnackBar("error".tr, "All fields are mandatory.");
         return;
       }
+
+      if (siteOwnerContactTextController.text.length != 10) {
+        showSnackBar("error".tr, "Enter valid  Site Owner Contact number.");
+        return;
+      }
       if (locationPinTextController.text.isEmpty) {
         showSnackBar("error".tr, "All fields are mandatory.");
         return;

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cpo_assists/database/database_operation.dart';
 import 'package:cpo_assists/routes/app_routes.dart';
 import 'package:cpo_assists/utils/app_colors.dart';
+import 'package:cpo_assists/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,9 +16,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String? version;
+
   @override
   void initState() {
     super.initState();
+    getVersion();
 
     Timer(const Duration(seconds: 2), () async {
       if(DatabaseOperation.databaseOperation.getEmail()!.isNotEmpty) {
@@ -25,6 +29,13 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
          Get.offAndToNamed(AppRoutes.loginScreen);
       }
+    });
+  }
+
+  void getVersion() async {
+    version = await versionInfo();
+    setState(() {
+
     });
   }
 
@@ -51,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Container(
               padding: const EdgeInsets.only(bottom: 20),
               child: Text(
-                "Version 0.1",
+                "Version $version",
                 style: TextStyle(
                     color: AppColors.kPrimaryColor,
                     fontSize: 10.sp,

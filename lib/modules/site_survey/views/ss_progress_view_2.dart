@@ -69,13 +69,13 @@ class _SSProgressViewTwoState extends State<SSProgressViewTwo> {
       }
 
       widget.siteSurveyController!.approvedPowerCapacityTextController.text =
-          siteSurveyObjectRequests!.powerCapacity.toString() ?? "";
+          siteSurveyObjectRequests!.powerCapacity ?? "";
       widget.siteSurveyController!.siteMaxPowerDemandTextController.text =
-          siteSurveyObjectRequests!.powerDemand.toString() ?? "";
+          siteSurveyObjectRequests!.powerDemand ?? "";
       widget.siteSurveyController!.availablePowerTextController.text =
-          siteSurveyObjectRequests!.availablePower.toString() ?? "";
+          siteSurveyObjectRequests!.availablePower ?? "";
       widget.siteSurveyController!.earthingTestValueTextController.text =
-          siteSurveyObjectRequests!.earthingValue.toString() ?? "";
+          siteSurveyObjectRequests!.earthingValue ?? "";
 
       setState(() {
         widget.siteSurveyController!.isSeparateLineOnExistingMeter =
@@ -660,6 +660,8 @@ class _SSProgressViewTwoState extends State<SSProgressViewTwo> {
         allowMultiple: false,
         allowedExtensions: ['jpg', 'png', 'pdf', 'doc', 'txt'],
       );
+      print("File photo len : ${result?.files[0].bytes}");
+      print("File photo len : ${result?.files[0].size}");
       if (result != null) {
         showLoader();
         bool docResult = await widget.siteSurveyController!.uploadDoc(
@@ -678,6 +680,7 @@ class _SSProgressViewTwoState extends State<SSProgressViewTwo> {
     } else {
       final ImagePicker picker = ImagePicker();
       final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+      print("camera photo len : ${await photo?.length()}");
       if(photo != null) {
         showLoader();
         bool docResult = await widget.siteSurveyController!.uploadDoc(

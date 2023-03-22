@@ -223,57 +223,63 @@ class _SSProgressViewState extends State<SSProgressView> {
                 child: SizedBox(
                   child: Row(
                     children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 35.h,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              elevation: MaterialStateProperty.all<double>(
-                                0,
+                      Visibility(
+                        visible: !widget.siteSurveyController!.processViewOneVisible.value,
+                        child: Expanded(
+                          child: SizedBox(
+                            height: 35.h,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all<double>(
+                                  0,
+                                ),
+                                backgroundColor: MaterialStateProperty.all<Color>(
+                                  AppColors.kBlackColor,
+                                ),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.r),
+                                      side: const BorderSide(
+                                          color: AppColors.kBlackColor)),
+                                ),
                               ),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.kBlackColor,
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    side: const BorderSide(
-                                        color: AppColors.kBlackColor)),
-                              ),
-                            ),
-                            onPressed: () async {
-                              previousOperation();
-                            },
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "previous".tr,
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
+                              onPressed: () async {
+                                previousOperation();
+                              },
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "previous".tr,
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: RotatedBox(
-                                    quarterTurns: 2,
-                                    child: Icon(
-                                      Icons.play_arrow_sharp,
-                                      size: 14,
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: RotatedBox(
+                                      quarterTurns: 2,
+                                      child: Icon(
+                                        Icons.play_arrow_sharp,
+                                        size: 14,
+                                      ),
                                     ),
-                                  ), 
-                                ),
-                              ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 10.w),
+                      Visibility(
+                        visible: !widget.siteSurveyController!.processViewOneVisible.value,
+                          child: SizedBox(width: 10.w),
+                      ),
                       Expanded(
                         child: SizedBox(
                           height: 35.h,

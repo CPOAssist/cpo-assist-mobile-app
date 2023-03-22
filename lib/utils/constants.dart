@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 const String fontFamily = "Inter";
 
@@ -79,6 +80,20 @@ void getItRegister<T extends Object>(T t, {String? name}) {
 void logout() {
   DatabaseOperation.databaseOperation.clearApplicationUtils();
   Get.offNamedUntil(AppRoutes.loginScreen, (route) => false);
+}
+
+Future<String> versionInfo() async {
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+  String version = packageInfo.version;
+  // String buildNumber = packageInfo.buildNumber;
+
+  return version;
+}
+
+Future<bool> onBackPressed() async {
+  Get.offAndToNamed(AppRoutes.landingPage);
+  return true;
 }
 
 void onLogout(BuildContext context) {
@@ -328,6 +343,14 @@ class AlwaysDisabledFocusNode extends FocusNode {
   bool get hasFocus => false;
 }
 
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
+  }
+}
+
 int selectedDrawerIndex = 0;
 
 Widget drawer(BuildContext context) {
@@ -424,9 +447,9 @@ Widget drawer(BuildContext context) {
                       textScaleFactor: 1,
                     ),
                     onTap: () {
-                      selectedDrawerIndex = 1;
+                      //selectedDrawerIndex = 1;
                       Get.back();
-                      Get.offAndToNamed(AppRoutes.profileScreen);
+                      Get.toNamed(AppRoutes.profileScreen);
                     },
                   ),
                   ListTile(

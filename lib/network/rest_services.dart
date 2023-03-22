@@ -264,6 +264,7 @@ class RestServices {
 
       Response response =
       await _dio.get("$siteSurveyUpdateStatus$siteSurveyId", options: Options(headers: {"Authorization": token}));
+      log("response = $response");
       if (response.statusCode == 200) {
         if (response.data != null) {
           Map decodedResponse = response.data;
@@ -414,10 +415,10 @@ class RestServices {
         'isChargerArea': siteSurveyObjectRequests.isChargerArea,
         'civilWorkCharger': siteSurveyObjectRequests.civilWorkCharger,
         'footFall_Id': siteSurveyObjectRequests.footFall1,
-        'chargerMountId': siteSurveyObjectRequests.chargerMount,
+        'chargerMountId': (siteSurveyObjectRequests.chargerMount is num) ? siteSurveyObjectRequests.chargerMount : null ,
         'surveyedByUserId': userId,
       };
-
+      log("body = ${json.encode(data)}");
       Response response =
       await _dio.post(siteSurvey, data: json.encode(data), options: Options(headers: {"Authorization": token}));
       if (response.statusCode == 200) {

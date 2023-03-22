@@ -30,20 +30,23 @@ class _CommissioningScreenState extends State<CommissioningScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "commissioning".tr,
-          style: TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.w600,
+    return WillPopScope(
+      onWillPop: onBackPressed,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "commissioning".tr,
+            style: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      drawer: drawer(context),
-      body: SafeArea(
-        child: bodyWidget(),
+        drawer: drawer(context),
+        body: SafeArea(
+          child: bodyWidget(),
+        ),
       ),
     );
   }
@@ -181,7 +184,7 @@ class _CommissioningScreenState extends State<CommissioningScreen> {
                   return const SizedBox(height: 10, width: double.infinity);
                 },
                 shrinkWrap: true,
-                itemCount: 5,
+                itemCount: 0,
                 itemBuilder: (context, index) {
                   return assignedListItem(context, index);
                 },

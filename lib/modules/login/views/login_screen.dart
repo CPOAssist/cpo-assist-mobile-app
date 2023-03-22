@@ -59,17 +59,18 @@ class _LoginScreenState extends State<LoginScreen> {
             width: double.infinity,
             height: 312.h,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(height: 50.h),
                 Image(
                   alignment: Alignment.center,
                   image: const AssetImage("assets/images/cpo_assists.png"),
                   width: 267.w,
                   height: 66.h,
                 ),
+                SizedBox(height: 25.h),
                 Container(
-                  padding: EdgeInsets.only(left: 54.w),
+                  padding: EdgeInsets.only(left: 54.r),
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Container(
             margin: EdgeInsets.only(
-                top: 375.h,
+                top: 330.h,
                 left: 10,
                 right: 10,
                 bottom: 10),
